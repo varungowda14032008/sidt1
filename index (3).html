@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Campus Library Desk – RV University B.Tech CSE</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  body{font-family:'Inter',system-ui,sans-serif;background:radial-gradient(900px 600px at 0% 25%,rgba(16,185,129,.13),transparent 60%),radial-gradient(900px 600px at 100% 65%,rgba(109,70,220,.16),transparent 60%),#101c26;color:#f1f5f9;overflow-x:hidden}
+  .font-cinzel{font-family:'Cinzel',Georgia,serif}
+  .font-serif-italic{font-family:'Playfair Display',Georgia,serif;font-style:italic}
+  .font-mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  @keyframes floatUp{0%{transform:translateY(110vh) rotate(0);opacity:0}15%,85%{opacity:.7}100%{transform:translateY(-15vh) rotate(22deg);opacity:0}}
+  @keyframes drift{0%,100%{transform:translate(0,0) scale(1);opacity:.28}50%{transform:translate(50px,40px) scale(1.15);opacity:.42}}
+  .f1{animation:floatUp 28s infinite linear}.f2{animation:floatUp 34s infinite linear 6s}.f3{animation:floatUp 31s infinite linear 13s}
+  .g1{animation:floatUp 22s infinite ease-out 1s}.g2{animation:floatUp 26s infinite ease-out 8s}
+  .aura{animation:drift 24s infinite ease-in-out}
+  @keyframes bgRise{0%{transform:translate3d(0,110vh,0) rotate(var(--r0)) scale(.85);opacity:0}12%{opacity:var(--o)}88%{opacity:var(--o)}100%{transform:translate3d(var(--dx),-20vh,0) rotate(var(--r1)) scale(1.1);opacity:0}}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.95;transform:scale(1.25)}}
+  .bgi{position:absolute;top:0;will-change:transform,opacity;animation:bgRise var(--d) linear var(--delay) infinite;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
+  .bgdot{position:absolute;border-radius:50%;animation:twinkle var(--d) ease-in-out var(--delay) infinite}
+  .bglines{position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 38px);-webkit-mask-image:linear-gradient(#000,transparent 90%);mask-image:linear-gradient(#000,transparent 90%)}
+  @media (prefers-reduced-motion:reduce){.f1,.f2,.f3,.g1,.g2,.aura{animation:none}.bgi,.bgdot{animation:none;opacity:.3}}
+  @media print{
+    body *{visibility:hidden}
+    #printableCertificateArea,#printableCertificateArea *{visibility:visible}
+    #printableCertificateArea{position:absolute;left:0;top:0;width:100%;margin:0;padding:24px;background:#fff!important;color:#000!important;border:2px solid #101c26!important}
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative selection:bg-[#cda659] selection:text-black">
+
+<!-- Background -->
+<div id="bgLayer" class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+  <div class="bglines"></div>
+  <div class="aura absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full bg-emerald-600/20 blur-[130px]"></div>
+  <div class="aura absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full bg-rose-700/20 blur-[140px]"></div>
+  <div class="absolute top-1/2 left-1/3 w-[450px] h-[450px] rounded-full bg-amber-500/10 blur-[140px]"></div>
+  <svg class="f1 absolute left-[8%] w-16 h-16" viewBox="0 0 100 80" fill="none"><path d="M50 20C35 12 15 15 8 20V65C15 60 35 58 50 66Z" fill="#064e3b" stroke="#34d399" stroke-width="2"/><path d="M50 20C65 12 85 15 92 20V65C85 60 65 58 50 66Z" fill="#065f46" stroke="#34d399" stroke-width="2"/><line x1="50" y1="20" x2="50" y2="66" stroke="#cda659" stroke-width="2.5"/></svg>
+  <svg class="f2 absolute left-[78%] w-16 h-16" viewBox="0 0 100 80" fill="none"><path d="M50 20C35 12 15 15 8 20V65C15 60 35 58 50 66Z" fill="#881337" stroke="#fb7185" stroke-width="2"/><path d="M50 20C65 12 85 15 92 20V65C85 60 65 58 50 66Z" fill="#9f1239" stroke="#fb7185" stroke-width="2"/><line x1="50" y1="20" x2="50" y2="66" stroke="#cda659" stroke-width="2.5"/></svg>
+  <svg class="f3 absolute left-[45%] w-14 h-14" viewBox="0 0 100 80" fill="none"><path d="M50 20C35 12 15 15 8 20V65C15 60 35 58 50 66Z" fill="#78350f" stroke="#fcd34d" stroke-width="2"/><path d="M50 20C65 12 85 15 92 20V65C85 60 65 58 50 66Z" fill="#92400e" stroke="#fcd34d" stroke-width="2"/><line x1="50" y1="20" x2="50" y2="66" stroke="#cda659" stroke-width="2.5"/></svg>
+  <div class="g1 absolute left-[20%] text-amber-400 text-2xl">λ</div>
+  <div class="g2 absolute left-[62%] text-emerald-400 text-2xl">Σ</div>
+  <div class="g1 absolute left-[88%] text-rose-400 font-mono text-xl">{ ; }</div>
+  <div class="g2 absolute left-[70%] text-amber-300 font-mono text-sm">O(1)</div>
+</div>
+
+<!-- Header -->
+<header class="relative z-30 px-4 md:px-6 py-3 border-b border-[#223a4d] bg-[#162734]/95 backdrop-blur-md flex flex-wrap items-center justify-between gap-2">
+  <div class="flex items-center gap-3 bg-[#111f2a]/90 px-3.5 py-1.5 rounded-2xl border border-[#cda659]/40 shadow-lg">
+    <svg class="h-10 w-10 md:h-11 md:w-11 flex-shrink-0" viewBox="0 0 160 170" fill="none">
+      <path d="M80 14C80 6 85 2 80 0C75 2 80 6 80 14Z" stroke="#cda659" stroke-width="3" fill="#cda659"/>
+      <path d="M42 42Q80 34 80 48Q80 34 118 42" stroke="#cda659" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M38 58L38 96Q80 88 80 102Q80 88 122 96L122 58" stroke="#cda659" stroke-width="3.5" fill="none"/>
+      <line x1="80" y1="48" x2="80" y2="102" stroke="#cda659" stroke-width="3.5"/>
+      <path d="M38 96C38 126 80 134 80 134C80 134 122 126 122 96" stroke="#cda659" stroke-width="3" fill="none"/>
+      <path d="M42 124Q80 136 118 124L114 140Q80 152 46 140Z" fill="#111f2a" stroke="#cda659" stroke-width="2.5"/>
+      <polygon points="80,129 82,133 86,133 83,135 84,139 80,136 76,139 77,135 74,133 78,133" fill="#cda659"/>
+    </svg>
+    <div class="leading-none border-l border-[#2e4759] pl-3">
+      <div class="font-cinzel text-sm md:text-base tracking-[0.08em] font-black text-[#cda659]">RV UNIVERSITY</div>
+      <div class="font-serif-italic text-[10px] text-[#d6b774] mt-0.5">Go, change the world</div>
+      <div class="text-[7.5px] tracking-[0.16em] uppercase text-slate-400 mt-0.5">B.Tech Computer Science &amp; Engineering</div>
+    </div>
+  </div>
+  <div class="flex items-center gap-2.5">
+    <div id="headerUserBadge" class="hidden items-center gap-2 bg-[#1c2e3d] border border-[#2d495f] px-3 py-1.5 rounded-xl">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <div class="text-left text-xs leading-none">
+        <div id="headerUserName" class="font-semibold text-slate-100"></div>
+        <div id="headerUserUSN" class="text-[10px] font-mono text-[#cda659]"></div>
+      </div>
+      <button onclick="handleLogout()" class="ml-2 text-slate-400 hover:text-rose-400 text-xs" title="Sign out" aria-label="Sign out">✕</button>
+    </div>
+    
+  </div>
+</header>
+
+<div id="toastContainer" class="fixed top-16 right-4 md:right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+<main class="relative z-10 flex-1 max-w-7xl mx-auto w-full p-4 md:p-6 space-y-6">
+
+  <!-- Login -->
+  <section id="authSection" class="max-w-md mx-auto my-6 p-6 md:p-8 bg-[#162734]/90 backdrop-blur-md rounded-3xl border border-[#2d475c] shadow-2xl space-y-6">
+    <div class="text-center space-y-2">
+      <div class="inline-flex p-3 rounded-2xl bg-[#cda659]/10 border border-[#cda659]/30 text-[#cda659]">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      </div>
+      <h2 class="font-cinzel text-xl font-bold text-[#cda659]">Student Circulation Desk</h2>
+      <p class="text-xs text-slate-300">Select your official USN from the 51 B.Tech CSE cohort</p>
+    </div>
+    <form id="loginForm" onsubmit="handleStudentLogin(event)" class="space-y-4">
+      <div>
+        <label for="studentSelect" class="block text-xs font-semibold text-slate-300 mb-1.5">Select Student USN</label>
+        <select id="studentSelect" onchange="onStudentSelectChanged()" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]"></select>
+      </div>
+      <div id="phoneGroup" class="hidden space-y-1">
+        <label for="studentPhoneInput" class="block text-xs font-semibold text-slate-300">Registered WhatsApp Mobile Number</label>
+        <input type="tel" id="studentPhoneInput" placeholder="10-digit mobile number" inputmode="numeric" maxlength="10" autocomplete="tel" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+        <p class="text-[10px] text-slate-400">Used for 1-click WhatsApp issue slips &amp; prior-day due date notices</p>
+      </div>
+      <div id="emailGroup" class="hidden space-y-1">
+        <label for="studentEmailInput" class="block text-xs font-semibold text-slate-300">Email Address</label>
+        <input type="email" id="studentEmailInput" placeholder="you@example.com" autocomplete="email" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+        <p class="text-[10px] text-slate-400">Used to verify you if you ever forget your password</p>
+      </div>
+      <div class="space-y-1">
+        <label id="pinLabel" for="studentPinInput" class="block text-xs font-semibold text-slate-300">Desk Password</label>
+        <input type="password" id="studentPinInput" placeholder="Enter your password" autocomplete="current-password" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+        <p id="authHint" class="text-[10px] text-slate-400"></p>
+        <button type="button" id="forgotLink" onclick="openForgot()" class="hidden text-[11px] text-[#d6b774] hover:text-white underline">Forgot password?</button>
+      </div>
+      <div id="confirmGroup" class="hidden space-y-1">
+        <label for="studentPinConfirm" class="block text-xs font-semibold text-slate-300">Confirm Password</label>
+        <input type="password" id="studentPinConfirm" placeholder="Re-enter your password" autocomplete="new-password" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+      </div>
+      <div id="masterGroup" class="hidden space-y-1">
+        <label for="masterCodeInput" class="block text-xs font-semibold text-slate-300">Master Setup Code</label>
+        <input type="password" id="masterCodeInput" placeholder="Provided by the university" autocomplete="off" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+        <p class="text-[10px] text-slate-400">Only library staff hold this code. It is needed once, when creating a librarian password.</p>
+      </div>
+      <button id="loginBtn" type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#cda659] to-[#d6b774] hover:from-[#b58f44] text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg">Authorize &amp; Access Desk</button>
+    </form>
+
+    <!-- Forgot password -->
+    <div id="forgotPanel" class="hidden space-y-4">
+      <div class="text-center space-y-1">
+        <h3 class="font-cinzel text-lg font-bold text-[#cda659]">Reset Your Password</h3>
+        <p class="text-xs text-slate-300">Enter the email and mobile number you registered with, then choose a new password.</p>
+        <p id="forgotUsn" class="text-xs font-mono text-[#cda659]"></p>
+      </div>
+      <form onsubmit="handleForgotSubmit(event)" class="space-y-4">
+        <div class="space-y-1">
+          <label for="forgotEmail" class="block text-xs font-semibold text-slate-300">Registered Email</label>
+          <input type="email" id="forgotEmail" autocomplete="email" placeholder="you@example.com" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+        </div>
+        <div class="space-y-1">
+          <label for="forgotPhone" class="block text-xs font-semibold text-slate-300">Registered Mobile Number</label>
+          <input type="tel" id="forgotPhone" inputmode="numeric" maxlength="10" autocomplete="tel" placeholder="10-digit mobile number" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+        </div>
+        <div class="space-y-1">
+          <label for="forgotNew" class="block text-xs font-semibold text-slate-300">New Password</label>
+          <input type="password" id="forgotNew" autocomplete="new-password" placeholder="At least 6 characters" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+        </div>
+        <div class="space-y-1">
+          <label for="forgotConfirm" class="block text-xs font-semibold text-slate-300">Confirm New Password</label>
+          <input type="password" id="forgotConfirm" autocomplete="new-password" placeholder="Re-enter new password" class="w-full bg-[#101c26] border border-[#2c475d] rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-[#cda659]">
+        </div>
+        <button id="forgotBtn" type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#cda659] to-[#d6b774] hover:from-[#b58f44] text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg">Reset Password</button>
+        <button type="button" onclick="closeForgot()" class="w-full text-[11px] text-slate-400 hover:text-white underline">← Back to login</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Librarian home -->
+  <section id="librarianSection" class="hidden max-w-xl mx-auto my-6 p-6 md:p-8 bg-[#162734]/90 backdrop-blur-md rounded-3xl border border-[#2d475c] shadow-2xl text-center space-y-4">
+    <div class="inline-flex p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-2xl">🛡️</div>
+    <h2 class="font-cinzel text-xl font-bold text-[#cda659]">Faculty &amp; Central Server Terminal</h2>
+    <p class="text-xs text-slate-300">Signed in as <strong id="librarianName"></strong>. If you closed the terminal, reopen it below.</p>
+    <button onclick="openFacultyModal()" class="px-6 py-3 rounded-xl bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg">Open Terminal</button>
+  </section>
+
+  <!-- Portal -->
+  <section id="portalSection" class="hidden space-y-8">
+    <div class="bg-[#162734]/90 backdrop-blur-md rounded-2xl border border-[#cda659]/40 p-4 shadow-lg space-y-3" aria-live="polite">
+      <div class="flex items-center justify-between gap-2">
+        <h3 class="font-cinzel text-sm font-bold text-[#cda659]">🔔 Notifications <span id="notifyCount" class="ml-2 px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30"></span></h3>
+        <button onclick="markNotificationsRead()" class="text-[11px] text-slate-400 hover:text-white underline">Mark all read</button>
+      </div>
+      <div id="studentNotifyList" class="space-y-2 max-h-56 overflow-y-auto"></div>
+    </div>
+    <div class="bg-[#162734]/90 backdrop-blur-md rounded-2xl border border-[#263e50] p-4 md:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-lg">
+      <div class="space-y-1">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-semibold">Active Session</span>
+          <h2 id="portalStudentName" class="text-base md:text-lg font-bold"></h2>
+          <span id="portalStudentUsn" class="text-xs font-mono text-[#cda659]"></span>
+        </div>
+        <p class="text-xs text-slate-400">Quota: <strong class="text-slate-200">2 books</strong> • Window: <strong class="text-[#cda659]">7 days</strong> • Overdue: <strong class="text-rose-400">₹10/day</strong></p>
+      </div>
+      <button onclick="openStudentAuditModal()" class="px-4 py-2 rounded-xl bg-[#1f3547] hover:bg-[#28465d] border border-slate-600 text-xs font-semibold flex items-center gap-1.5 shadow">🎓 View Clearance Status</button>
+    </div>
+
+    <div class="space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="font-cinzel text-sm md:text-base font-bold text-[#cda659]">📚 Currently Issued to You (<span id="activeBorrowsCount">0</span>/2)</h3>
+        <span class="text-xs text-slate-400">Late returns incur ₹10/day</span>
+      </div>
+      <div id="activeBorrowsList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
+
+    <div class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h3 class="font-cinzel text-base md:text-lg font-bold">🏛️ Academic Core Engineering Catalog</h3>
+          <p class="text-xs text-slate-400">Autonomous shelf circulation</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="text" id="catalogSearch" oninput="renderBooksCatalog()" placeholder="Search title, author, barcode…" aria-label="Search catalog" class="bg-[#12202c] border border-[#284257] rounded-xl px-3.5 py-1.5 text-xs focus:outline-none focus:border-[#cda659] w-48 sm:w-64">
+          <select id="catalogFilter" onchange="renderBooksCatalog()" aria-label="Filter catalog" class="bg-[#12202c] border border-[#284257] rounded-xl px-2.5 py-1.5 text-xs focus:outline-none focus:border-[#cda659]">
+            <option value="all">All Titles</option><option value="available">Available</option><option value="queued">Waitlisted Only</option>
+          </select>
+        </div>
+      </div>
+      <div id="booksCatalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </div>
+
+    <div class="space-y-4 pt-4 border-t border-[#223a4d]">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold uppercase">Lounge Reading Room</span>
+            <h3 class="font-cinzel text-base md:text-lg font-bold text-[#cda659]">Newspapers &amp; Research Magazines</h3>
+          </div>
+          <p class="text-xs text-slate-400">National dailies, regional broadsheets &amp; computer science periodicals</p>
+        </div>
+        <div class="inline-flex p-1 rounded-xl bg-[#101c26] border border-[#263e50]">
+          <button onclick="setPeriodicalTab('newspapers')" id="tabBtnNewspapers" class="px-3 py-1 rounded-lg text-xs font-semibold">📰 Newspapers (6)</button>
+          <button onclick="setPeriodicalTab('magazines')" id="tabBtnMagazines" class="px-3 py-1 rounded-lg text-xs font-semibold">🔬 Magazines (5)</button>
+        </div>
+      </div>
+      <div id="periodicalsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="relative z-20 border-t border-[#223a4d] bg-[#162734]/95 py-3.5 px-6 text-xs text-slate-400 mt-12">
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-2 max-w-7xl mx-auto">
+    <div class="flex items-center gap-2"><span class="font-cinzel text-[#cda659] font-bold">RV UNIVERSITY</span><span>•</span><span class="font-serif-italic text-[#d6b774]">Go, change the world</span></div>
+    <p class="text-[11px] font-mono">Autonomous Smart Campus Circulation Desk • Faculty Operations &amp; Student Kiosk</p>
+  </div>
+</footer>
+
+<!-- Faculty modal -->
+<div id="facultyModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 md:p-4 overflow-y-auto">
+  <div class="bg-[#162734] border border-[#2e4759] rounded-2xl w-full h-full overflow-hidden shadow-2xl flex flex-col">
+    <div class="p-4 md:p-5 border-b border-[#223a4d] bg-[#111f2a] flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-lg">🛡️</div>
+        <div>
+          <h3 class="font-cinzel text-base font-bold">Faculty &amp; Central Server Terminal</h3>
+          <p class="text-[11px] text-slate-400">WhatsApp Dispatcher • Inventory • Clearance • Optical Scanner</p>
+        </div>
+      </div>
+      <button onclick="closeFacultyModal()" class="text-slate-400 hover:text-white text-lg p-1.5" aria-label="Close">✕</button>
+    </div>
+
+
+    <div id="facultyWorkstation" class="hidden flex-1 flex flex-col overflow-hidden">
+      <div class="px-5 pt-3 border-b border-[#223a4d] bg-[#111f2a]/60 flex items-center justify-between gap-2 overflow-x-auto">
+        <div class="flex items-center gap-1" id="facTabs"></div>
+        <button onclick="openOpticalScannerModal()" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold flex items-center gap-1.5 shadow mb-1 whitespace-nowrap">📷 Optical Barcode Scanner</button>
+      </div>
+      <div class="p-5 flex-1 overflow-y-auto space-y-6">
+        <div id="facView_due_alerts" class="space-y-4">
+          <div class="bg-[#1a2c3a] border border-[#2c475d] p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div><h4 class="font-bold text-sm text-[#cda659]">1-Click WhatsApp Notification Dispatcher</h4>
+            <p class="text-xs text-slate-400">Reminders to students’ registered numbers the day before the due date, plus instant issue receipts.</p></div>
+            <div class="text-xs font-mono text-slate-300">Overdue rate: <span class="text-rose-400 font-bold">₹10 / day</span></div>
+          </div>
+          <div class="overflow-x-auto rounded-2xl border border-[#223a4d]"><table class="w-full text-left text-xs">
+            <thead class="bg-[#111f2a] text-slate-400 uppercase font-mono text-[10px] border-b border-[#223a4d]"><tr><th class="p-3">Student</th><th class="p-3">Mobile</th><th class="p-3">Book</th><th class="p-3">Due</th><th class="p-3">Status</th><th class="p-3 text-right">Action</th></tr></thead>
+            <tbody id="facultyAlertsTableBody" class="divide-y divide-[#223a4d] bg-[#162734]"></tbody></table></div>
+        </div>
+
+        <div id="facView_inventory" class="hidden space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div><h4 class="font-bold text-sm">Core Library Book Catalog &amp; Live Stock</h4><p class="text-xs text-slate-400">Total copies, shelf availability, checked out &amp; waitlists</p></div>
+            <input type="text" id="facInventorySearch" oninput="renderFacultyInventory()" placeholder="Filter books…" aria-label="Filter books" class="bg-[#101c26] border border-[#284257] rounded-xl px-3 py-1.5 text-xs">
+          </div>
+          <div class="overflow-x-auto rounded-2xl border border-[#223a4d]"><table class="w-full text-left text-xs">
+            <thead class="bg-[#111f2a] text-slate-400 uppercase font-mono text-[10px] border-b border-[#223a4d]"><tr><th class="p-3">Barcode</th><th class="p-3">Title &amp; Author</th><th class="p-3 text-center">Total</th><th class="p-3 text-center">On Shelf</th><th class="p-3 text-center">Out</th><th class="p-3 text-center">Waitlist</th><th class="p-3 text-right">Stock</th></tr></thead>
+            <tbody id="facInventoryTableBody" class="divide-y divide-[#223a4d] bg-[#162734]"></tbody></table></div>
+          <div class="bg-[#101c26] border border-[#223a4d] p-4 rounded-2xl space-y-3">
+            <h5 class="text-xs font-bold text-[#cda659] uppercase tracking-wider">Add a New Book</h5>
+            <label class="flex items-center gap-2 text-xs text-slate-300"><input type="checkbox" id="newBookNotify" checked class="accent-[#cda659]"> Notify all students about this new book</label>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+              <input type="text" id="newBookBarcode" placeholder="Barcode (optional)" aria-label="Barcode" class="bg-[#162734] border border-[#284257] rounded-xl px-3 py-1.5 text-xs">
+              <input type="text" id="newBookTitle" placeholder="Book title" aria-label="Book title" class="bg-[#162734] border border-[#284257] rounded-xl px-3 py-1.5 text-xs">
+              <input type="text" id="newBookAuthor" placeholder="Author" aria-label="Author" class="bg-[#162734] border border-[#284257] rounded-xl px-3 py-1.5 text-xs">
+              <div class="flex gap-2">
+                <input type="number" id="newBookTotal" value="3" min="1" aria-label="Copies" class="w-20 bg-[#162734] border border-[#284257] rounded-xl px-3 py-1.5 text-xs">
+                <button onclick="handleFacultyAddBook()" class="flex-1 bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold rounded-xl text-xs uppercase">+ Add Book</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="facView_clearance" class="hidden space-y-4">
+          <div class="bg-[#1a2c3a] border border-[#2c475d] p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div><h4 class="font-bold text-sm text-[#cda659]">Institutional “No Dues” Clearance Authority</h4>
+            <p class="text-xs text-slate-400">A student needs 0 active books and ₹0 fines to receive the printable certificate.</p></div>
+            <input type="text" id="facClearanceSearch" oninput="renderFacultyClearance()" placeholder="Search USN or name…" aria-label="Search students" class="bg-[#101c26] border border-[#284257] rounded-xl px-3 py-1.5 text-xs">
+          </div>
+          <div class="overflow-x-auto rounded-2xl border border-[#223a4d]"><table class="w-full text-left text-xs">
+            <thead class="bg-[#111f2a] text-slate-400 uppercase font-mono text-[10px] border-b border-[#223a4d]"><tr><th class="p-3">SL</th><th class="p-3">USN</th><th class="p-3">Name</th><th class="p-3 text-center">Borrows</th><th class="p-3 text-center">Fine</th><th class="p-3 text-center">Status</th><th class="p-3 text-right">Print</th></tr></thead>
+            <tbody id="facClearanceTableBody" class="divide-y divide-[#223a4d] bg-[#162734]"></tbody></table></div>
+        </div>
+
+        <div id="facView_notify" class="hidden space-y-4">
+          <div class="bg-[#1a2c3a] border border-[#2c475d] p-4 rounded-2xl">
+            <h4 class="font-bold text-sm text-[#cda659]">Send a Notification to All Students</h4>
+            <p class="text-xs text-slate-400">It appears in every student’s notification bar, with the librarian’s name.</p>
+          </div>
+          <div class="bg-[#101c26] border border-[#223a4d] p-4 rounded-2xl space-y-3">
+            <input type="text" id="noteTitle" maxlength="80" placeholder="Title (e.g. Library closed on Saturday)" aria-label="Notification title" class="w-full bg-[#162734] border border-[#284257] rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#cda659]">
+            <textarea id="noteBody" rows="3" maxlength="500" placeholder="Write your message to all students…" aria-label="Notification message" class="w-full bg-[#162734] border border-[#284257] rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#cda659]"></textarea>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-[11px] text-slate-400">Sending as <strong id="noteSender" class="text-[#cda659]"></strong></span>
+              <button onclick="sendNotification()" class="px-5 py-2 rounded-xl bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold text-xs uppercase tracking-wider shadow">📢 Send to all 51 students</button>
+            </div>
+          </div>
+          <h5 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Sent notifications</h5>
+          <div id="facNotifyList" class="space-y-2"></div>
+        </div>
+
+        <div id="facView_cohort" class="hidden space-y-4">
+          <div class="flex items-center justify-between gap-3">
+            <div><h4 class="font-bold text-sm">B.Tech CSE Student Cohort (51 enrolled)</h4><p class="text-xs text-slate-400">Manage registered numbers and desk PINs</p></div>
+            <input type="text" id="facCohortSearch" oninput="renderFacultyCohort()" placeholder="Search cohort…" aria-label="Search cohort" class="bg-[#101c26] border border-[#284257] rounded-xl px-3 py-1.5 text-xs">
+          </div>
+          <div class="overflow-auto rounded-2xl border border-[#223a4d] max-h-[68vh]"><table class="w-full text-left text-xs">
+            <thead class="bg-[#111f2a] text-slate-400 uppercase font-mono text-[10px] border-b border-[#223a4d] sticky top-0"><tr><th class="p-3">SL</th><th class="p-3">USN</th><th class="p-3">Name</th><th class="p-3">Mobile</th><th class="p-3">PIN</th><th class="p-3 text-right">Action</th></tr></thead>
+            <tbody id="facCohortTableBody" class="divide-y divide-[#223a4d] bg-[#162734]"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scanner modal -->
+<div id="scannerModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+  <div class="bg-[#162734] border border-[#2e4759] rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl p-6 space-y-5">
+    <div class="flex items-center justify-between border-b border-[#223a4d] pb-3">
+      <h3 class="font-cinzel text-base font-bold">📷 Optical Barcode &amp; ISBN Scanner</h3>
+      <button onclick="closeOpticalScannerModal()" class="text-slate-400 hover:text-white" aria-label="Close">✕</button>
+    </div>
+    <div class="relative bg-black rounded-2xl h-48 border-2 border-dashed border-[#cda659]/50 flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-x-8 top-1/2 h-0.5 bg-rose-500 shadow-[0_0_12px_#f43f5e] animate-pulse"></div>
+      <div class="text-center space-y-1 z-10 bg-black/60 px-4 py-2 rounded-xl">
+        <p class="text-xs font-mono text-amber-300">Align book barcode within viewfinder</p>
+        <p class="text-[10px] text-slate-400">Simulated scanner • EAN-13 &amp; Code-128</p>
+      </div>
+    </div>
+    <div class="space-y-2">
+      <label class="block text-xs font-semibold text-slate-300">Instant Barcode Emulation</label>
+      <div id="scanQuick" class="grid grid-cols-2 gap-2"></div>
+    </div>
+    <div class="flex gap-2">
+      <input type="text" id="manualScanInput" placeholder="Enter barcode number…" aria-label="Barcode" onkeydown="if(event.key==='Enter')handleManualScanSubmit()" class="flex-1 bg-[#101c26] border border-[#2c475d] rounded-xl px-3 py-2 text-xs">
+      <button onclick="handleManualScanSubmit()" class="px-4 py-2 rounded-xl bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold text-xs uppercase">Resolve</button>
+    </div>
+  </div>
+</div>
+
+<!-- Certificate modal -->
+<div id="certificateModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 md:p-4 overflow-y-auto">
+  <div class="bg-[#162734] border border-[#2e4759] rounded-3xl w-full max-w-2xl shadow-2xl p-5 md:p-8 space-y-6 my-auto">
+    <div id="printableCertificateArea" class="bg-white text-slate-900 p-6 md:p-8 rounded-2xl space-y-6 border-4 border-[#162734]">
+      <div class="text-center space-y-2 border-b-2 border-[#162734] pb-4">
+        <span class="font-cinzel text-xl font-black tracking-widest text-[#162734]">RV UNIVERSITY</span>
+        <p class="text-[11px] font-serif-italic text-slate-600">Go, change the world</p>
+        <div class="text-[9px] font-mono uppercase tracking-widest text-slate-500">Department of Computer Science &amp; Engineering • Central Library</div>
+        <h2 class="font-cinzel text-lg font-black tracking-wider text-[#162734] pt-2">INSTITUTIONAL NO DUES CLEARANCE CERTIFICATE</h2>
+      </div>
+      <div class="space-y-4 text-xs leading-relaxed">
+        <p>This is to certify that the student whose credentials appear below has completed the library circulation audit:</p>
+        <div class="grid grid-cols-2 gap-3 p-4 bg-slate-50 border border-slate-300 rounded-xl font-mono text-[11px]">
+          <div><span class="text-slate-500 block text-[9px]">STUDENT NAME:</span><strong id="certStudentName" class="text-slate-900 text-xs"></strong></div>
+          <div><span class="text-slate-500 block text-[9px]">UNIVERSITY SEAT NO (USN):</span><strong id="certStudentUSN" class="text-slate-900 text-xs"></strong></div>
+          <div><span class="text-slate-500 block text-[9px]">PROGRAMME &amp; DEPT:</span><span class="text-slate-800">B.Tech Computer Science</span></div>
+          <div><span class="text-slate-500 block text-[9px]">AUDIT DATE:</span><span id="certDate" class="text-slate-800"></span></div>
+        </div>
+        <div id="certStatusBanner" class="p-3.5 rounded-xl border text-center font-bold text-xs"></div>
+      </div>
+      <div class="pt-8 flex items-end justify-between text-center text-[10px]">
+        <div><div class="w-28 border-b border-slate-500 mx-auto mb-1"></div><span class="text-slate-600">Student Signature</span></div>
+        <div class="font-mono text-slate-800 border border-slate-300 px-3 py-1.5 rounded-lg bg-slate-50 text-[9px]"><span class="text-slate-500 block text-[8px]">AUDIT SERIAL:</span><strong id="certSerial" class="text-indigo-950 tracking-wider text-[10px]"></strong></div>
+        <div><div class="w-32 border-b border-slate-500 mx-auto mb-1"></div><span class="text-slate-600">University Librarian Authority</span></div>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+      <div id="certPrintNotice" class="text-xs font-medium"></div>
+      <div class="flex items-center gap-3">
+        <button onclick="closeCertificateModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:text-white">Close</button>
+        <button id="certPrintBtn" onclick="window.print()" class="hidden px-5 py-2 rounded-xl bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg">🖨️ Print Certificate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const NAMES = ["AARAV SHARMA","ADITI RAO","ADITYA KULKARNI","AKANKSHA HEGDE","ANANYA DESHMUKH","ANKIT VERMA","AYUSHMAN SEN","BHUVANESHWARI M","CHETAN KUMAR S","DEEPIKA NAIR","DHRUV PATEL","DISHA JAIN","GAGAN DEEP SINGH","GOVIND NARAYAN","HARSHITA REDDY","ULLAS U","ISHAN MALHOTRA","JANANI S","KARAN JOSHI","KAVYA SREE","KEERTHI RAJ","KIRAN KUMAR","LAKSHMI PRASANNA","MADHAVI LATA","MANISH TIWARI","MEERA NANDAN","MOHAMMED ZAYN","NANDINI SHENOY","NIKHIL MENON","NITHIN PRABHU","POOJA CHOUDHARY","PRANAV IYER","PRIYANKA DAS","RAHUL BHAT","RAKSHITHA GOWDA","RISHABH SHAH","ROHAN KINI","SAHANA MURTHY","SAMARTH K","SANJANA GUPTA","SHREYA ACHARYA","SIDDHARTH HEGDE","SNEHA KULKARNI","SPOORTHI RAI","SURYA TEJA","TANVI B","TARUN CHANDRA","TRISHA SEN","VAIBHAV SHETTY","VAISHNAVI REDDY","VARUN GOWDA UN"];
+const INITIAL_STUDENTS = NAMES.map((name, i) => {
+  const sl = i + 1;
+  const special = sl === 16 || sl === 51;
+  const usn = special ? `RVUM26CSE${String(sl === 51 ? 63 : 16).padStart(3, '0')}` : `RVU23CSE${String(sl).padStart(3, '0')}`;
+  return { sl, usn, name, phone: "", passHash: "" };
+});
+const INITIAL_LIBRARIANS = [
+  { id:"LIB-01", name:"Librarian 1", phone:"", passHash:"" },
+  { id:"LIB-02", name:"Librarian 2", phone:"", passHash:"" }
+];
+const INITIAL_BOOKS = [
+  { id:"CSE-101", title:"Introduction to Algorithms (4th Edition)", author:"Cormen, Leiserson, Rivest, Stein (CLRS)", barcode:"9780262033848", total:4, available:3, waitlist:[] },
+  { id:"CSE-103", title:"Database System Concepts (7th Edition)", author:"Silberschatz, Korth, Sudarshan", barcode:"9780078022159", total:4, available:2, waitlist:[] },
+  { id:"CSE-102", title:"Operating System Concepts (10th Edition)", author:"Silberschatz, Galvin, Gagne", barcode:"9781118063330", total:3, available:2, waitlist:[] },
+  { id:"CSE-104", title:"Computer Networking: A Top-Down Approach (8th Ed)", author:"Kurose & Ross", barcode:"9780136681557", total:3, available:3, waitlist:[] },
+  { id:"CSE-105", title:"Compilers: Principles, Techniques, & Tools (Dragon Book)", author:"Aho, Lam, Sethi, Ullman", barcode:"9780321486813", total:2, available:1, waitlist:[] },
+  { id:"CSE-106", title:"Introduction to the Theory of Computation (3rd Ed)", author:"Michael Sipser", barcode:"9781133187790", total:3, available:3, waitlist:[] },
+  { id:"CSE-107", title:"Discrete Mathematics and Its Applications (8th Ed)", author:"Kenneth H. Rosen", barcode:"9781259676512", total:4, available:3, waitlist:[] }
+];
+const NEWSPAPERS = [
+  ["The Hindu","English","Daily","Bengaluru Metro","Periodicals Bay A - Shelf 1"],
+  ["Deccan Herald","English","Daily","Karnataka State","Periodicals Bay A - Shelf 2"],
+  ["The Times of India","English","Daily","Bengaluru Edition","Periodicals Bay A - Shelf 3"],
+  ["Prajavani (ಪ್ರಜಾವಾಣಿ)","Kannada","Daily","State Broadsheet","Periodicals Bay B - Shelf 1"],
+  ["The Hindu Business Line","English","Daily (Business)","National Finance","Periodicals Bay B - Shelf 2"],
+  ["The Indian Express","English","Daily","National","Periodicals Bay B - Shelf 3"]
+];
+const MAGAZINES = [
+  ["IEEE Computer Magazine","IEEE Computer Society","Monthly","Vol. 59, No. 10 (Oct 2026)","Research Periodicals - Bay C"],
+  ["Communications of the ACM (CACM)","ACM","Monthly","Vol. 69, Iss. 11 (Nov 2026)","Research Periodicals - Bay C"],
+  ["MIT Technology Review","Technology Review Inc.","Bi-Monthly","Nov/Dec 2026: AI Frontiers","Periodicals Bay D - Shelf 1"],
+  ["Open Source For You (OSFY)","EFY Group","Monthly","Issue 168 (Nov 2026)","Periodicals Bay D - Shelf 2"],
+  ["Harvard Business Review (HBR)","Harvard Business Publishing","Bi-Monthly","Strategy & Tech Leadership 2026","Periodicals Bay D - Shelf 3"]
+];
+const THEMES = {
+  'CSE-101':{bg:'from-[#062c21] via-[#0b382b] to-[#071e17]',border:'border-emerald-500/50',spine:'bg-emerald-500',badge:'Algorithms & Logic'},
+  'CSE-103':{bg:'from-[#330f1c] via-[#421425] to-[#220912]',border:'border-rose-500/50',spine:'bg-rose-600',badge:'Data Architecture'},
+  'CSE-102':{bg:'from-[#0c243c] via-[#0f2c49] to-[#0a1b2d]',border:'border-sky-500/50',spine:'bg-sky-500',badge:'Kernel & Systems'},
+  'CSE-104':{bg:'from-[#1e1b4b] via-[#2e1065] to-[#172554]',border:'border-indigo-500/50',spine:'bg-indigo-500',badge:'Networks & Protocols'},
+  'CSE-105':{bg:'from-[#422006] via-[#451a03] to-[#291002]',border:'border-amber-500/50',spine:'bg-amber-500',badge:'Compilers & Grammars'},
+  'CSE-106':{bg:'from-[#2e1065] via-[#3b0764] to-[#1e1b4b]',border:'border-purple-500/50',spine:'bg-purple-500',badge:'Automata Theory'},
+  'CSE-107':{bg:'from-[#083344] via-[#164e63] to-[#042f2e]',border:'border-teal-500/50',spine:'bg-teal-500',badge:'Discrete Structures'}
+};
+const KEYS = { STUDENTS:'rvu_library_students_v2', BOOKS:'rvu_library_books_v2', CIRCS:'rvu_library_circs_v2', USER:'rvu_library_user_v2', LIBS:'rvu_library_librarians_v2', LIBUSER:'rvu_library_libuser_v2', NOTES:'rvu_library_notes_v2' };
+const DAY = 86400000;
+
+function load(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; }
+}
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+let students = load(KEYS.STUDENTS, null) || INITIAL_STUDENTS;
+let books = load(KEYS.BOOKS, null) || INITIAL_BOOKS;
+let circulations = load(KEYS.CIRCS, null) || [{
+  id:"CIRC-101", bookId:"CSE-103", title:"Database System Concepts (7th Edition)",
+  usn:"RVUM26CSE063", studentName:"VARUN GOWDA UN", studentPhone:"",
+  borrowedAt:new Date(Date.now()-2*DAY).toISOString(), dueDate:new Date(Date.now()+1*DAY).toISOString(),
+  isReturned:false
+}];
+let currentStudent = load(KEYS.USER, null);
+let librarians = load(KEYS.LIBS, null) || INITIAL_LIBRARIANS;
+const savedLibId = load(KEYS.LIBUSER, null);
+let currentLibrarian = savedLibId ? (librarians.find(l => l.id === savedLibId) || null) : null;
+let notifications = load(KEYS.NOTES, null) || [];
+let periodicalTab = 'newspapers';
+let facultyUnlocked = false;
+
+function saveAll() {
+  try {
+    localStorage.setItem(KEYS.STUDENTS, JSON.stringify(students));
+    localStorage.setItem(KEYS.BOOKS, JSON.stringify(books));
+    localStorage.setItem(KEYS.CIRCS, JSON.stringify(circulations));
+    if (currentStudent) localStorage.setItem(KEYS.USER, JSON.stringify(currentStudent));
+    else localStorage.removeItem(KEYS.USER);
+    localStorage.setItem(KEYS.LIBS, JSON.stringify(librarians));
+    localStorage.setItem(KEYS.NOTES, JSON.stringify(notifications));
+    if (currentLibrarian) localStorage.setItem(KEYS.LIBUSER, JSON.stringify(currentLibrarian.id));
+    else localStorage.removeItem(KEYS.LIBUSER);
+  } catch (e) { /* storage unavailable: app still works for this session */ }
+}
+
+function showToast(msg, type='info') {
+  const colors = { info:'bg-indigo-600 border-indigo-400', success:'bg-emerald-600 border-emerald-400', error:'bg-rose-600 border-rose-400', warning:'bg-amber-600 border-amber-300' };
+  const t = document.createElement('div');
+  t.className = `${colors[type]} text-white border px-4 py-3 rounded-2xl shadow-xl text-xs font-semibold flex items-center justify-between pointer-events-auto`;
+  const span = document.createElement('span'); span.textContent = msg;
+  const btn = document.createElement('button'); btn.textContent = '✕'; btn.className = 'ml-3 text-white/80 hover:text-white'; btn.onclick = () => t.remove();
+  t.append(span, btn);
+  document.getElementById('toastContainer').appendChild(t);
+  setTimeout(() => t.remove(), 4000);
+}
+
+function getFineDetails(dueStr) {
+  const diffDays = Math.ceil((new Date(dueStr).getTime() - Date.now()) / DAY);
+  const isOverdue = diffDays < 0;
+  const overdueDays = isOverdue ? -diffDays : 0;
+  return { diffDays, isOverdue, overdueDays, fine: overdueDays * 10 };
+}
+const fmtDate = d => new Date(d).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+const $ = id => document.getElementById(id);
+
+window.addEventListener('DOMContentLoaded', () => {
+  buildBackground();
+  initEyeToggles();
+  populateStudentSelect();
+  buildFacultyTabs();
+  $('scanQuick').innerHTML = books.slice(0, 4).map(b => `
+    <button onclick="handleSimulatedScan('${b.barcode}')" class="p-2 rounded-xl bg-[#1f3547] hover:bg-[#28465d] border border-[#375a75] text-left text-xs">
+      <span class="font-mono text-[#cda659] block text-[10px]">${b.barcode}</span>
+      <span class="font-bold truncate block">${esc(b.title.split('(')[0].trim())}</span>
+    </button>`).join('');
+  setPeriodicalTab('newspapers');
+  updateAuthUI(); renderActiveBorrows(); renderBooksCatalog();
+});
+
+function populateStudentSelect() {
+  $('studentSelect').innerHTML =
+    `<optgroup label="Students (51)">` + students.map(s => `<option value="${esc(s.usn)}">${esc(s.usn)} — ${esc(s.name)}</option>`).join('') + `</optgroup>` +
+    `<optgroup label="Library Staff">` + librarians.map(l => `<option value="${esc(l.id)}">${esc(l.id)} — ${esc(l.name)}</option>`).join('') + `</optgroup>`;
+  onStudentSelectChanged();
+}
+/* ---------- Supabase (student registration & login) ---------- */
+const SUPABASE_URL = 'https://pgpexbwrytkwgdoxtnpq.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_NYkkKg0iG4rQByGVFwUQ0Q_-lHSx-gW';
+const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+async function callRpc(fn, args) {
+  if (!sb) return { ok:false, error:'Could not load the server connection. Check your internet.' };
+  try {
+    const { data, error } = await sb.rpc(fn, args);
+    if (error) { console.error(fn, error); return { ok:false, error:'Server error. Please try again.' }; }
+    return data || { ok:false, error:'Empty response from the server.' };
+  } catch (err) {
+    console.error(fn, err);
+    return { ok:false, error:'Could not reach the server.' };
+  }
+}
+const getStudentStatus = usn => callRpc('student_status', { p_usn: usn });
+const registerStudent = (usn, phone, password, email) => callRpc('register_student', { p_usn: usn, p_phone: phone, p_password: password, p_email: email });
+const resetStudentPassword = (usn, email, phone, password) => callRpc('reset_student_password', { p_usn: usn, p_email: email, p_phone: phone, p_new_password: password });
+const loginStudent = (usn, password) => callRpc('login_student', { p_usn: usn, p_password: password });
+
+function findAccount(id) {
+  const s = students.find(x => x.usn === id);
+  if (s) return { kind:'student', acct:s };
+  const l = librarians.find(x => x.id === id);
+  return l ? { kind:'librarian', acct:l } : null;
+}
+async function onStudentSelectChanged() {
+  const id = $('studentSelect').value;
+  const a = findAccount(id);
+  const lib = !!a && a.kind === 'librarian';
+  let setup = !!a && !a.acct.passHash;
+  let offline = false;
+  if (a && !lib) {
+    $('loginBtn').disabled = true;
+    const st = await getStudentStatus(id);
+    if ($('studentSelect').value !== id) return;
+    $('loginBtn').disabled = false;
+    offline = st.ok === false;
+    setup = !offline && !!st.exists && !!st.needs_setup;
+  }
+  $('phoneGroup').classList.toggle('hidden', !(setup && !lib));
+  $('emailGroup').classList.toggle('hidden', !(setup && !lib));
+  $('forgotLink').classList.toggle('hidden', setup || lib || offline);
+  $('confirmGroup').classList.toggle('hidden', !setup);
+  $('masterGroup').classList.toggle('hidden', !(setup && lib));
+  $('studentPhoneInput').value = '';
+  $('studentEmailInput').value = '';
+  $('studentPinInput').value = '';
+  $('studentPinConfirm').value = '';
+  $('masterCodeInput').value = '';
+  $('pinLabel').textContent = setup ? 'Create a Password' : 'Desk Password';
+  $('studentPinInput').autocomplete = setup ? 'new-password' : 'current-password';
+  $('authHint').textContent = setup
+    ? (lib ? 'First time? Create your librarian password. The master setup code is required once.' : 'First time here? Add your mobile number and email, then create a password (at least 6 characters).')
+    : (offline ? 'Could not reach the server. Check your internet and try again.' : 'Enter the password you created.');
+  $('loginBtn').textContent = setup ? 'Create Password & Enter' : (lib ? 'Open Terminal' : 'Authorize & Access Desk');
+  $('loginBtn').dataset.mode = setup ? 'setup' : 'login';
+}
+
+const MASTER_HASH = 'f3089b06fc0b93d57eaf2f9d6c2a8403d50f14f7acc4bd65e3ccb709e3c303ab';
+async function hashMaster(code) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`rvu-lib-master:${code}`));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function hashPw(usn, pw) {
+  const data = new TextEncoder().encode(`rvu-lib:${usn}:${pw}`);
+  const buf = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function handleStudentLogin(e) {
+  e.preventDefault();
+  const found = findAccount($('studentSelect').value);
+  if (!found) return showToast('Account not found', 'error');
+  const { kind, acct } = found;
+  const pw = $('studentPinInput').value;
+  const btn = $('loginBtn');
+
+  if (kind === 'student') {
+    // Students: password is created and checked on Supabase (bcrypt, server side)
+    btn.disabled = true;
+    try {
+      let res;
+      if (btn.dataset.mode === 'setup') {
+        if (pw !== $('studentPinConfirm').value) return showToast('Passwords do not match.', 'error');
+        const email = $('studentEmailInput').value.trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showToast('Enter a valid email address.', 'error');
+        res = await registerStudent(acct.usn, $('studentPhoneInput').value, pw, email);
+      } else {
+        res = await loginStudent(acct.usn, pw);
+      }
+      if (!res.ok) {
+        if (res.needs_setup) onStudentSelectChanged();
+        return showToast(res.error, 'error');
+      }
+      acct.name = res.name || acct.name;
+      acct.phone = res.phone || acct.phone;
+      currentStudent = acct; currentLibrarian = null;
+      showToast(btn.dataset.mode === 'setup' ? 'Password created. Welcome!' : `Welcome ${acct.name}!`, 'success');
+    } finally {
+      btn.disabled = false;
+    }
+  } else {
+    // Librarians: still checked in this browser (see notes)
+    try {
+      if (!acct.passHash) {
+        if (await hashMaster($('masterCodeInput').value.trim()) !== MASTER_HASH) return showToast('Incorrect master setup code.', 'error');
+        if (pw.length < 6) return showToast('Password must be at least 6 characters.', 'error');
+        if (pw !== $('studentPinConfirm').value) return showToast('Passwords do not match.', 'error');
+        acct.passHash = await hashPw(acct.id, pw);
+        showToast('Password created. Welcome!', 'success');
+      } else if (await hashPw(acct.id, pw) !== acct.passHash) {
+        return showToast('Incorrect password.', 'error');
+      } else {
+        showToast(`Welcome ${acct.name}!`, 'success');
+      }
+    } catch (err) {
+      return showToast('Could not verify the password in this browser.', 'error');
+    }
+    currentLibrarian = acct; currentStudent = null;
+  }
+  saveAll(); updateAuthUI(); renderActiveBorrows(); renderBooksCatalog();
+  onStudentSelectChanged();
+  if (kind === 'librarian') openFacultyModal();
+}
+function handleLogout() {
+  currentStudent = null; currentLibrarian = null;
+  closeFacultyModal(); closeOpticalScannerModal(); closeCertificateModal();
+  saveAll(); updateAuthUI(); onStudentSelectChanged(); showToast('Signed out.', 'info');
+}
+function updateAuthUI() {
+  const badge = $('headerUserBadge');
+  const user = currentStudent || currentLibrarian;
+  $('authSection').classList.toggle('hidden', !!user);
+  $('portalSection').classList.toggle('hidden', !currentStudent);
+  $('librarianSection').classList.toggle('hidden', !currentLibrarian);
+  badge.classList.toggle('hidden', !user);
+  badge.classList.toggle('flex', !!user);
+  if (user) {
+    $('headerUserName').textContent = user.name;
+    $('headerUserUSN').textContent = currentStudent ? currentStudent.usn : currentLibrarian.id;
+  }
+  if (currentStudent) {
+    $('portalStudentName').textContent = currentStudent.name;
+    $('portalStudentUsn').textContent = currentStudent.usn;
+  }
+  if (currentLibrarian) $('librarianName').textContent = currentLibrarian.name;
+  if (currentStudent) renderStudentNotifications();
+}
+
+function renderActiveBorrows() {
+  if (!currentStudent) return;
+  const mine = circulations.filter(c => c.usn === currentStudent.usn && !c.isReturned);
+  $('activeBorrowsCount').textContent = mine.length;
+  if (!mine.length) {
+    $('activeBorrowsList').innerHTML = `<div class="col-span-full p-6 text-center rounded-2xl bg-[#142330]/70 border border-[#223a4d] text-slate-400 text-xs">No active borrowings. Browse the catalog below to issue up to 2 textbooks.</div>`;
+    return;
+  }
+  $('activeBorrowsList').innerHTML = mine.map(c => {
+    const { diffDays, isOverdue, overdueDays, fine } = getFineDetails(c.dueDate);
+    return `<div class="p-4 rounded-2xl bg-[#182937] border ${isOverdue ? 'border-rose-500/60' : 'border-[#2c475d]'} shadow-lg space-y-3">
+      <div class="flex items-start justify-between gap-2">
+        <div><h4 class="font-bold text-xs">${esc(c.title)}</h4>
+        <div class="text-[10px] font-mono text-[#cda659]">ID: ${esc(c.bookId)} • Borrowed: ${fmtDate(c.borrowedAt)}</div></div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-mono whitespace-nowrap ${isOverdue ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'}">${isOverdue ? `OVERDUE (${overdueDays}d)` : `${diffDays} days left`}</span>
+      </div>
+      <div class="flex items-center justify-between gap-2 text-xs pt-1 border-t border-[#223a4d]">
+        <div><span class="text-slate-400 text-[11px]">Due: </span><strong class="${isOverdue ? 'text-rose-400' : 'text-slate-200'}">${fmtDate(c.dueDate)}</strong>
+        ${isOverdue ? `<span class="ml-2 font-mono text-rose-400 font-bold">Fine: ₹${fine}</span>` : ''}</div>
+        <button onclick="handleReturnBook('${esc(c.id)}')" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow">Return Book</button>
+      </div></div>`;
+  }).join('');
+}
+
+function renderBooksCatalog() {
+  const search = ($('catalogSearch').value || '').toLowerCase();
+  const filter = $('catalogFilter').value;
+  const list = books.filter(b => {
+    if (!(b.title.toLowerCase().includes(search) || b.author.toLowerCase().includes(search) || b.barcode.includes(search))) return false;
+    if (filter === 'available') return b.available > 0;
+    if (filter === 'queued') return b.available === 0;
+    return true;
+  });
+  $('booksCatalogGrid').innerHTML = list.map(b => {
+    const th = THEMES[b.id] || { bg:'from-[#1a2c3a] to-[#12202c]', border:'border-[#2d475c]', spine:'bg-[#cda659]', badge:'Core Computing' };
+    const mine = currentStudent && circulations.some(c => c.usn === currentStudent.usn && c.bookId === b.id && !c.isReturned);
+    const waiting = currentStudent && b.waitlist.includes(currentStudent.usn);
+    const action = mine ? `<span class="text-xs text-emerald-400 font-bold">✓ Issued to You</span>`
+      : b.available > 0 ? `<button onclick="handleIssueBook('${esc(b.id)}')" class="px-4 py-2 rounded-xl bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold text-xs uppercase tracking-wider shadow">Issue Book (7d)</button>`
+      : waiting ? `<span class="text-xs text-amber-400 font-bold">In Waitlist Queue</span>`
+      : `<button onclick="handleJoinWaitlist('${esc(b.id)}')" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold">Join Waitlist (FIFO)</button>`;
+    return `<div class="relative rounded-2xl bg-gradient-to-br ${th.bg} border ${th.border} p-5 shadow-xl flex flex-col justify-between overflow-hidden">
+      <div class="absolute top-0 left-0 bottom-0 w-2 ${th.spine}"></div>
+      <div class="pl-2 space-y-2">
+        <div class="flex items-center justify-between gap-1">
+          <span class="text-[10px] font-mono uppercase tracking-wider text-[#cda659] font-bold">${esc(th.badge)}</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono ${b.available > 0 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">${b.available > 0 ? `${b.available}/${b.total} Available` : 'Stock Depleted'}</span>
+        </div>
+        <h4 class="font-bold text-sm leading-snug">${esc(b.title)}</h4>
+        <p class="text-xs text-slate-300 italic">${esc(b.author)}</p>
+        <div class="text-[10px] font-mono text-slate-400">Barcode: ${esc(b.barcode)}</div>
+        ${b.waitlist.length ? `<div class="text-[10px] text-amber-300">Waitlist: ${b.waitlist.length} student(s)</div>` : ''}
+      </div>
+      <div class="pl-2 pt-4 mt-3 border-t border-white/10 flex items-center justify-between">${action}</div></div>`;
+  }).join('') || `<div class="col-span-full p-6 text-center text-slate-400 text-xs">No titles match your search.</div>`;
+}
+
+function setPeriodicalTab(tab) {
+  periodicalTab = tab;
+  const on = "px-3 py-1 rounded-lg text-xs font-semibold bg-[#cda659] text-slate-950";
+  const off = "px-3 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white";
+  $('tabBtnNewspapers').className = tab === 'newspapers' ? on : off;
+  $('tabBtnMagazines').className = tab === 'magazines' ? on : off;
+  $('periodicalsContainer').innerHTML = tab === 'newspapers'
+    ? NEWSPAPERS.map(([name, lang, freq, ed, loc]) => `<div class="p-4 rounded-2xl bg-[#142330] border border-[#233c4f] shadow-lg space-y-2">
+        <div class="flex items-center justify-between"><span class="px-2 py-0.5 rounded text-[10px] font-mono bg-sky-500/20 text-sky-300 border border-sky-500/30">${esc(lang)} • ${esc(freq)}</span><span class="text-[10px] text-emerald-400 font-semibold">● Fresh Today</span></div>
+        <h4 class="font-bold text-sm">${esc(name)}</h4>
+        <div class="text-[11px] text-slate-300">Edition: <span class="text-slate-400">${esc(ed)}</span></div>
+        <div class="text-[10px] font-mono text-[#cda659]">📍 ${esc(loc)}</div></div>`).join('')
+    : MAGAZINES.map(([name, pub, freq, issue, loc]) => `<div class="p-4 rounded-2xl bg-[#142330] border border-[#233c4f] shadow-lg space-y-2">
+        <div class="flex items-center justify-between"><span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30">${esc(freq)}</span><span class="text-[10px] text-amber-400 font-semibold">Reference Copy</span></div>
+        <h4 class="font-bold text-sm">${esc(name)}</h4>
+        <div class="text-[11px] text-slate-300">Publisher: <span class="text-slate-400">${esc(pub)}</span></div>
+        <div class="text-[10px] text-slate-300">Issue: <strong class="text-amber-300 font-mono">${esc(issue)}</strong></div>
+        <div class="text-[10px] font-mono text-[#cda659]">📍 ${esc(loc)}</div></div>`).join('');
+}
+
+function handleIssueBook(bookId) {
+  if (!currentStudent) return showToast('Please sign in to issue books.', 'warning');
+  if (circulations.filter(c => c.usn === currentStudent.usn && !c.isReturned).length >= 2)
+    return showToast('Quota exceeded: max 2 books per student.', 'error');
+  const book = books.find(b => b.id === bookId);
+  if (!book || book.available <= 0) return showToast('No copies currently available on shelf.', 'error');
+  book.available -= 1;
+  const due = new Date(); due.setDate(due.getDate() + 7);
+  circulations.unshift({
+    id:`CIRC-${Date.now()}`, bookId:book.id, title:book.title, usn:currentStudent.usn, studentName:currentStudent.name,
+    studentPhone:currentStudent.phone || '', borrowedAt:new Date().toISOString(), dueDate:due.toISOString(), isReturned:false
+  });
+  saveAll(); renderActiveBorrows(); renderBooksCatalog();
+  showToast(`Issued “${book.title}”. Due ${fmtDate(due)}.`, 'success');
+}
+function handleReturnBook(circId) {
+  const circ = circulations.find(c => c.id === circId);
+  if (!circ) return;
+  circ.isReturned = true; circ.returnedAt = new Date().toISOString();
+  const book = books.find(b => b.id === circ.bookId);
+  if (book) {
+    const next = book.waitlist.length ? book.waitlist.shift() : null;
+    book.available = Math.min(book.total, book.available + 1);
+    if (next) showToast(`Waitlist alert: a copy of “${book.title}” is ready for ${next}.`, 'info');
+  }
+  saveAll(); renderActiveBorrows(); renderBooksCatalog();
+  showToast(`“${circ.title}” returned to shelf.`, 'success');
+}
+function handleJoinWaitlist(bookId) {
+  if (!currentStudent) return;
+  const book = books.find(b => b.id === bookId);
+  if (!book) return;
+  if (book.waitlist.includes(currentStudent.usn)) return showToast('You are already on this waitlist.', 'warning');
+  book.waitlist.push(currentStudent.usn);
+  saveAll(); renderBooksCatalog();
+  showToast(`Added to the waitlist for “${book.title}”.`, 'success');
+}
+
+/* ---------- Faculty terminal ---------- */
+const FAC_TABS = [['due_alerts','⏰ Due Tomorrow & Overdue'],['inventory','📦 Inventory & Stock'],['clearance','🖨️ Clearance Authority'],['cohort','👥 51-Student Vault'],['notify','📢 Notifications']];
+function buildFacultyTabs() {
+  $('facTabs').innerHTML = FAC_TABS.map(([id, label]) => `<button onclick="switchFacultyTab('${id}')" id="facTab_${id}" class="px-3.5 py-2 text-xs rounded-t-xl border-b-2 whitespace-nowrap">${label}</button>`).join('');
+  switchFacultyTab('due_alerts', true);
+}
+function openFacultyModal() {
+  if (!currentLibrarian) return;
+  $('facultyModal').classList.remove('hidden');
+  $('facultyWorkstation').classList.remove('hidden');
+  switchFacultyTab('due_alerts');
+}
+function closeFacultyModal() { $('facultyModal').classList.add('hidden'); }
+function switchFacultyTab(tab, silent) {
+  FAC_TABS.forEach(([t]) => {
+    $(`facTab_${t}`).className = t === tab
+      ? "px-3.5 py-2 text-xs font-bold rounded-t-xl border-b-2 border-[#cda659] text-[#cda659] bg-[#162734] whitespace-nowrap"
+      : "px-3.5 py-2 text-xs font-semibold rounded-t-xl border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap";
+    $(`facView_${t}`).classList.toggle('hidden', t !== tab);
+  });
+  if (silent) return;
+  ({ due_alerts:renderFacultyAlerts, inventory:renderFacultyInventory, clearance:renderFacultyClearance, cohort:renderFacultyCohort, notify:renderFacultyNotify })[tab]();
+}
+
+function sendWhatsAppReminder(circId, isDueTomorrow) {
+  const c = circulations.find(x => x.id === circId);
+  if (!c) return;
+  const owner = students.find(s => s.usn === c.usn);
+  const phone = ((owner && owner.phone) || c.studentPhone || '').replace(/\D/g, '');
+  if (phone.length < 10) return showToast(`${c.studentName} has no mobile number yet. Students add it when they first create their password.`, 'error');
+  const due = fmtDate(c.dueDate);
+  const msg = isDueTomorrow
+    ? `*RV UNIVERSITY - CENTRAL LIBRARY DESK*\n\nDear *${c.studentName}*,\n\nYour issued book:\n📖 *${c.title}*\n\nis due for return *TOMORROW (${due})* at the B.Tech CSE Smart Desk.\n\n⚠️ Please return or renew on time to avoid the late fine of *₹10 per day*.\n\n— University Librarian Authority, RVU`
+    : `*RV UNIVERSITY - CENTRAL LIBRARY DESK*\n\nDear *${c.studentName}*,\n\nConfirmation that *${c.title}* was checked out on your account.\nDue date: *${due}*.\nFine rate: *₹10/day* after the due date.\n\n— Faculty Desk, RVU`;
+  const url = `https://wa.me/${phone.length === 10 ? '91' + phone : phone}?text=${encodeURIComponent(msg)}`;
+  if (navigator.clipboard) navigator.clipboard.writeText(url).catch(() => {});
+  const w = window.open(url, '_blank');
+  if (w) w.opener = null;
+  showToast('WhatsApp opened. If the tab says “blocked”, the link is already copied: paste it into a new browser tab.', 'warning');
+}
+
+function renderFacultyAlerts() {
+  const active = circulations.filter(c => !c.isReturned);
+  $('facultyAlertsTableBody').innerHTML = !active.length
+    ? `<tr><td colspan="6" class="p-6 text-center text-slate-400">No active borrowings on record.</td></tr>`
+    : active.map(c => {
+      const { diffDays, isOverdue, overdueDays, fine } = getFineDetails(c.dueDate);
+      const tomorrow = diffDays === 1;
+      const status = isOverdue ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-500/20 text-rose-300 border border-rose-500/40">Overdue ${overdueDays}d (₹${fine})</span>`
+        : tomorrow ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse font-bold">⚠️ Due Tomorrow</span>`
+        : `<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">${diffDays} days left</span>`;
+      return `<tr class="hover:bg-[#1a2d3d]"><td class="p-3"><strong class="block">${esc(c.studentName)}</strong><span class="font-mono text-[#cda659] text-[10px]">${esc(c.usn)}</span></td>
+        <td class="p-3 font-mono text-slate-300">${esc(((students.find(s => s.usn === c.usn) || {}).phone) || c.studentPhone || '— not added')}</td><td class="p-3 font-semibold">${esc(c.title)}</td>
+        <td class="p-3 ${isOverdue ? 'text-rose-400 font-bold' : tomorrow ? 'text-amber-400 font-bold' : 'text-slate-300'}">${fmtDate(c.dueDate)}</td><td class="p-3">${status}</td>
+        <td class="p-3 text-right"><button onclick="sendWhatsAppReminder('${esc(c.id)}', ${tomorrow})" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] shadow whitespace-nowrap">💬 WhatsApp ${tomorrow ? 'Due Alert' : 'Slip'}</button></td></tr>`;
+    }).join('');
+}
+
+function renderFacultyInventory() {
+  const q = ($('facInventorySearch').value || '').toLowerCase();
+  $('facInventoryTableBody').innerHTML = books.filter(b => b.title.toLowerCase().includes(q) || b.barcode.includes(q)).map(b => `
+    <tr class="hover:bg-[#1a2d3d]"><td class="p-3 font-mono text-[#cda659] text-[11px]">${esc(b.barcode)}</td>
+      <td class="p-3"><strong class="block">${esc(b.title)}</strong><span class="text-slate-400 text-[10px]">${esc(b.author)}</span></td>
+      <td class="p-3 text-center font-bold">${b.total}</td>
+      <td class="p-3 text-center font-bold ${b.available > 0 ? 'text-emerald-400' : 'text-rose-400'}">${b.available}</td>
+      <td class="p-3 text-center font-bold text-slate-300">${b.total - b.available}</td>
+      <td class="p-3 text-center text-amber-400 font-mono">${b.waitlist.length}</td>
+      <td class="p-3 text-right"><div class="inline-flex gap-1">
+        <button onclick="adjustBookStock('${esc(b.id)}',-1)" class="w-7 h-7 rounded-lg bg-rose-600/30 hover:bg-rose-600 text-rose-200 hover:text-white font-bold text-xs" aria-label="Remove copy">−</button>
+        <button onclick="adjustBookStock('${esc(b.id)}',1)" class="w-7 h-7 rounded-lg bg-emerald-600/30 hover:bg-emerald-600 text-emerald-200 hover:text-white font-bold text-xs" aria-label="Add copy">+</button></div></td></tr>`).join('');
+}
+function adjustBookStock(id, delta) {
+  if (!currentLibrarian) return;
+  const b = books.find(x => x.id === id);
+  if (!b) return;
+  b.total = Math.max(1, b.total + delta);
+  b.available = Math.max(0, Math.min(b.total, b.available + delta));
+  saveAll(); renderFacultyInventory(); renderBooksCatalog();
+  showToast(`Updated stock for ${b.title}`, 'info');
+}
+function handleFacultyAddBook() {
+  if (!currentLibrarian) return;
+  const barcode = $('newBookBarcode').value.trim(), title = $('newBookTitle').value.trim(), author = $('newBookAuthor').value.trim();
+  const copies = Math.max(1, parseInt($('newBookTotal').value, 10) || 3);
+  if (!title || !author) return showToast('Please enter the book title and author name.', 'warning');
+  if (barcode && books.some(b => b.barcode === barcode)) return showToast('That barcode already exists.', 'error');
+  const code = barcode || `LIB${Date.now().toString().slice(-9)}`;
+  books.unshift({ id:`CSE-${Date.now().toString().slice(-6)}`, title, author, barcode: code, total:copies, available:copies, waitlist:[] });
+  saveAll(); renderFacultyInventory(); renderBooksCatalog();
+  if ($('newBookNotify').checked) pushNotification(`New book added: “${title}” by ${author} (${copies} ${copies === 1 ? 'copy' : 'copies'} available).`, 'New book added');
+  showToast(`Added “${title}” (${copies} ${copies === 1 ? 'copy' : 'copies'}).`, 'success');
+  ['newBookBarcode','newBookTitle','newBookAuthor'].forEach(i => $(i).value = '');
+}
+
+function renderFacultyClearance() {
+  const q = ($('facClearanceSearch').value || '').toLowerCase();
+  $('facClearanceTableBody').innerHTML = students.filter(s => s.name.toLowerCase().includes(q) || s.usn.toLowerCase().includes(q)).map(s => {
+    const borrows = circulations.filter(c => c.usn === s.usn && !c.isReturned);
+    const fines = borrows.reduce((a, c) => a + getFineDetails(c.dueDate).fine, 0);
+    const ok = !borrows.length && !fines;
+    return `<tr class="hover:bg-[#1a2d3d]"><td class="p-3 text-slate-400 font-mono">${s.sl}</td><td class="p-3 font-mono text-[#cda659]">${esc(s.usn)}</td>
+      <td class="p-3 font-semibold">${esc(s.name)}</td><td class="p-3 text-center font-bold">${borrows.length}</td>
+      <td class="p-3 text-center font-mono ${fines ? 'text-rose-400 font-bold' : 'text-slate-300'}">₹${fines}</td>
+      <td class="p-3 text-center">${ok ? '<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">CLEARED</span>' : '<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30">WITHHELD</span>'}</td>
+      <td class="p-3 text-right">${ok ? `<button onclick="openCertificateModalForStudent('${esc(s.usn)}', true)" class="px-3 py-1.5 rounded-xl bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold text-xs uppercase shadow">🖨️ Print</button>` : '<span class="text-[11px] text-slate-500 italic">Clear dues first</span>'}</td></tr>`;
+  }).join('');
+}
+
+function renderFacultyCohort() {
+  const q = ($('facCohortSearch').value || '').toLowerCase();
+  $('facCohortTableBody').innerHTML = students.filter(s => s.name.toLowerCase().includes(q) || s.usn.toLowerCase().includes(q)).map(s => `
+    <tr class="hover:bg-[#1a2d3d]"><td class="p-3 text-slate-400 font-mono">${s.sl}</td><td class="p-3 font-mono text-[#cda659]">${esc(s.usn)}</td>
+      <td class="p-3 font-semibold">${esc(s.name)}</td><td class="p-3 font-mono text-slate-300">${esc(s.phone || '—')}</td>
+      <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-mono ${s.passHash ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">${s.passHash ? 'Password set' : 'Not set up'}</span></td>
+      <td class="p-3 text-right"><button onclick="resetStudentPIN('${esc(s.usn)}')" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-[10px] font-semibold">Reset Password</button></td></tr>`).join('');
+}
+function resetStudentPIN(usn) {
+  if (!currentLibrarian) return;
+  const s = students.find(x => x.usn === usn);
+  if (!s) return;
+  s.passHash = ''; saveAll(); renderFacultyCohort();
+  showToast(`Cleared the password for ${usn}. They will create a new one at next sign-in.`, 'info');
+}
+
+/* ---------- Notifications ---------- */
+function pushNotification(text, title) {
+  notifications.unshift({ id:`N-${Date.now()}`, title:title || 'Library notice', text, from:currentLibrarian ? currentLibrarian.name : 'Library', at:new Date().toISOString() });
+  notifications = notifications.slice(0, 100);
+  saveAll(); renderFacultyNotify(); renderStudentNotifications();
+}
+function sendNotification() {
+  if (!currentLibrarian) return;
+  const title = $('noteTitle').value.trim(), text = $('noteBody').value.trim();
+  if (!text) return showToast('Write a message first.', 'warning');
+  pushNotification(text, title || 'Library notice');
+  $('noteTitle').value = ''; $('noteBody').value = '';
+  showToast('Notification sent to all students.', 'success');
+}
+function deleteNotification(id) {
+  if (!currentLibrarian) return;
+  notifications = notifications.filter(n => n.id !== id);
+  saveAll(); renderFacultyNotify(); renderStudentNotifications();
+}
+const fmtTime = d => new Date(d).toLocaleString('en-IN', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+function renderFacultyNotify() {
+  const el = $('facNotifyList');
+  if (!el) return;
+  $('noteSender').textContent = currentLibrarian ? currentLibrarian.name : '';
+  el.innerHTML = notifications.length ? notifications.map(n => `<div class="p-3 rounded-xl bg-[#101c26] border border-[#223a4d] flex items-start justify-between gap-3">
+    <div><strong class="text-xs">${esc(n.title)}</strong><p class="text-xs text-slate-300 mt-1">${esc(n.text)}</p>
+    <div class="text-[10px] font-mono text-[#cda659] mt-1">— ${esc(n.from)} • ${fmtTime(n.at)}</div></div>
+    <button onclick="deleteNotification('${esc(n.id)}')" class="text-slate-500 hover:text-rose-400 text-xs" aria-label="Delete notification">✕</button></div>`).join('')
+    : `<p class="text-xs text-slate-400">Nothing sent yet.</p>`;
+}
+function seenKey() { return `rvu_library_seen_${currentStudent ? currentStudent.usn : ''}`; }
+function getSeen() { try { return localStorage.getItem(seenKey()) || ''; } catch (e) { return ''; } }
+function markNotificationsRead() {
+  try { localStorage.setItem(seenKey(), new Date().toISOString()); } catch (e) { /* ignore */ }
+  renderStudentNotifications();
+}
+function renderStudentNotifications() {
+  const box = $('studentNotifyList');
+  if (!box || !currentStudent) return;
+  const seen = getSeen();
+  const unread = notifications.filter(n => n.at > seen).length;
+  $('notifyCount').textContent = unread ? `${unread} new` : 'All read';
+  box.innerHTML = notifications.length ? notifications.slice(0, 8).map(n => {
+    const isNew = n.at > seen;
+    return `<div class="p-3 rounded-xl bg-[#101c26] border ${isNew ? 'border-amber-500/50' : 'border-[#223a4d]'}">
+      <div class="flex items-center justify-between gap-2"><strong class="text-xs">${esc(n.title)}</strong>${isNew ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">NEW</span>' : ''}</div>
+      <p class="text-xs text-slate-300 mt-1">${esc(n.text)}</p>
+      <div class="text-[10px] font-mono text-[#cda659] mt-1">— ${esc(n.from)} • ${fmtTime(n.at)}</div></div>`;
+  }).join('') : `<p class="text-xs text-slate-400">No notifications yet.</p>`;
+}
+window.addEventListener('storage', e => {
+  if (e.key === KEYS.NOTES) { notifications = load(KEYS.NOTES, []) || []; renderStudentNotifications(); renderFacultyNotify(); }
+});
+
+/* ---------- Show/hide password + forgot password ---------- */
+function initEyeToggles() {
+  const eyeOn = `<svg class='w-4 h-4' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12Z'/><circle cx='12' cy='12' r='3'/></svg>`;
+  const eyeOff = `<svg class='w-4 h-4' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M3 3l18 18M10.6 6.2A9.6 9.6 0 0 1 12 5c6 0 9.5 7 9.5 7a16 16 0 0 1-3.2 3.9M6.6 6.7C3.9 8.4 2.5 12 2.5 12S6 19 12 19c1.6 0 3-.4 4.2-1'/></svg>`;
+  document.querySelectorAll('#authSection input[type="password"]').forEach(inp => {
+    if (inp.dataset.eye) return;
+    inp.dataset.eye = '1';
+    const wrap = document.createElement('div');
+    wrap.className = 'relative';
+    inp.parentNode.insertBefore(wrap, inp);
+    wrap.appendChild(inp);
+    inp.classList.add('pr-11');
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'absolute inset-y-0 right-0 px-3 text-slate-400 hover:text-[#cda659]';
+    b.setAttribute('aria-label', 'Show password');
+    b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = eyeOn;
+    b.onclick = () => {
+      const show = inp.type === 'password';
+      inp.type = show ? 'text' : 'password';
+      b.innerHTML = show ? eyeOff : eyeOn;
+      b.setAttribute('aria-pressed', String(show));
+      b.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    };
+    wrap.appendChild(b);
+  });
+}
+function openForgot() {
+  $('forgotUsn').textContent = $('studentSelect').value;
+  ['forgotEmail', 'forgotPhone', 'forgotNew', 'forgotConfirm'].forEach(i => { $(i).value = ''; });
+  $('loginForm').classList.add('hidden');
+  $('forgotPanel').classList.remove('hidden');
+}
+function closeForgot() {
+  $('forgotPanel').classList.add('hidden');
+  $('loginForm').classList.remove('hidden');
+  onStudentSelectChanged();
+}
+async function handleForgotSubmit(e) {
+  e.preventDefault();
+  const usn = $('studentSelect').value;
+  const email = $('forgotEmail').value.trim();
+  const phone = $('forgotPhone').value.replace(/\D/g, '');
+  const pw = $('forgotNew').value;
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showToast('Enter a valid email address.', 'error');
+  if (!/^[6-9]\d{9}$/.test(phone)) return showToast('Enter your 10-digit mobile number.', 'error');
+  if (pw.length < 6) return showToast('Password must be at least 6 characters.', 'error');
+  if (pw !== $('forgotConfirm').value) return showToast('Passwords do not match.', 'error');
+  const btn = $('forgotBtn');
+  btn.disabled = true;
+  try {
+    const res = await resetStudentPassword(usn, email, phone, pw);
+    if (!res.ok) return showToast(res.error, 'error');
+    showToast('Password reset. Please log in with your new password.', 'success');
+    closeForgot();
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* ---------- Animated background ---------- */
+function buildBackground() {
+  const layer = $('bgLayer');
+  if (!layer) return;
+  const k = window.innerWidth < 640 ? 0.5 : 1;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+  const palettes = [['#064e3b','#34d399'],['#881337','#fb7185'],['#78350f','#fcd34d'],['#1e3a8a','#60a5fa'],['#4c1d95','#a78bfa']];
+  const colors = ['#fbbf24','#34d399','#fb7185','#a5b4fc','#fcd34d','#5eead4'];
+  const book = ([f, s]) => `<svg viewBox='0 0 100 80' fill='none' width='100%' height='100%'><path d='M50 20C35 12 15 15 8 20V65C15 60 35 58 50 66Z' fill='${f}' stroke='${s}' stroke-width='2.5'/><path d='M50 20C65 12 85 15 92 20V65C85 60 65 58 50 66Z' fill='${f}' stroke='${s}' stroke-width='2.5'/><line x1='50' y1='20' x2='50' y2='66' stroke='#cda659' stroke-width='2.5'/></svg>`;
+  const paper = ([f, s]) => `<svg viewBox='0 0 60 80' fill='none' width='100%' height='100%'><rect x='6' y='4' width='48' height='72' rx='5' fill='${f}' fill-opacity='.55' stroke='${s}' stroke-width='2.5'/><line x1='16' y1='22' x2='44' y2='22' stroke='${s}' stroke-width='2'/><line x1='16' y1='34' x2='44' y2='34' stroke='${s}' stroke-width='2'/><line x1='16' y1='46' x2='44' y2='46' stroke='${s}' stroke-width='2'/><line x1='16' y1='58' x2='34' y2='58' stroke='${s}' stroke-width='2'/></svg>`;
+  const sparkle = c => `<svg viewBox='0 0 24 24' width='100%' height='100%'><path d='M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z' fill='${c}'/></svg>`;
+  const bolt = `<svg viewBox='0 0 24 24' width='100%' height='100%'><path d='M13 2L4 14H11L10 22L20 9H13Z' fill='#fb923c'/></svg>`;
+  const add = (html, size, extra = '') => {
+    const el = document.createElement('div');
+    const d = rnd(22, 42);
+    el.className = 'bgi';
+    el.style.cssText = `left:${rnd(0, 96)}%;width:${size}px;height:${size}px;--d:${d}s;--delay:${-rnd(0, d)}s;--o:${rnd(0.45, 0.85)};--r0:${rnd(-25, 25)}deg;--r1:${rnd(-60, 60)}deg;--dx:${rnd(-80, 80)}px;${extra}`;
+    el.innerHTML = html;
+    layer.appendChild(el);
+  };
+  for (let i = 0; i < Math.round(12 * k); i++) add(book(pick(palettes)), rnd(46, 74));
+  for (let i = 0; i < Math.round(8 * k); i++) add(paper(pick(palettes)), rnd(34, 52));
+  const glyphs = ['λ','Σ','π','∫','Ω','α','dx','0101','O(n)','{;}','√','∞','f(x)','</>','1010'];
+  for (let i = 0; i < Math.round(16 * k); i++) {
+    const c = pick(colors);
+    add(pick(glyphs), 20, `width:auto;height:auto;font:600 ${Math.round(rnd(16, 30))}px 'JetBrains Mono',monospace;color:${c};text-shadow:0 0 12px ${c}`);
+  }
+  for (let i = 0; i < Math.round(5 * k); i++) add(sparkle(pick(['#fb7185','#fcd34d','#a5b4fc'])), rnd(14, 24));
+  for (let i = 0; i < Math.round(2 * k); i++) add(bolt, rnd(22, 30));
+  for (let i = 0; i < Math.round(36 * k); i++) {
+    const dot = document.createElement('span');
+    const c = pick(colors), s = rnd(2, 4.5), d = rnd(3, 7);
+    dot.className = 'bgdot';
+    dot.style.cssText = `left:${rnd(0, 100)}%;top:${rnd(0, 100)}%;width:${s}px;height:${s}px;background:${c};box-shadow:0 0 8px ${c};--d:${d}s;--delay:${-rnd(0, d)}s`;
+    layer.appendChild(dot);
+  }
+}
+
+/* ---------- Scanner ---------- */
+function openOpticalScannerModal() { $('scannerModal').classList.remove('hidden'); }
+function closeOpticalScannerModal() { $('scannerModal').classList.add('hidden'); }
+function handleSimulatedScan(barcode) { $('manualScanInput').value = barcode; handleManualScanSubmit(); }
+function handleManualScanSubmit() {
+  const code = $('manualScanInput').value.trim();
+  if (!code) return;
+  const book = books.find(b => b.barcode === code || b.id === code);
+  if (!book) return showToast(`Barcode ${code} not found in catalog.`, 'error');
+  closeOpticalScannerModal();
+  showToast(`Scanner resolved: “${book.title}”`, 'success');
+  if (currentStudent) {
+    const active = circulations.find(c => c.usn === currentStudent.usn && c.bookId === book.id && !c.isReturned);
+    active ? handleReturnBook(active.id) : handleIssueBook(book.id);
+  } else showToast(`On shelf: ${book.available}/${book.total}`, 'info');
+}
+
+/* ---------- Certificate ---------- */
+function openStudentAuditModal() { if (currentStudent) openCertificateModalForStudent(currentStudent.usn, false); }
+function openCertificateModalForStudent(usn, facultyView) {
+  facultyView = facultyView && !!currentLibrarian;
+  const s = students.find(x => x.usn === usn);
+  if (!s) return;
+  const borrows = circulations.filter(c => c.usn === s.usn && !c.isReturned);
+  const fines = borrows.reduce((a, c) => a + getFineDetails(c.dueDate).fine, 0);
+  const cleared = !borrows.length && !fines;
+  $('certStudentName').textContent = s.name;
+  $('certStudentUSN').textContent = s.usn;
+  $('certDate').textContent = fmtDate(new Date());
+  $('certSerial').textContent = `RVU-CSE-${s.usn.slice(-4)}-${Date.now().toString().slice(-4)}`;
+  const banner = $('certStatusBanner');
+  banner.className = cleared ? "p-3.5 rounded-xl border border-emerald-500 bg-emerald-50 text-emerald-900 text-center font-bold text-xs"
+                             : "p-3.5 rounded-xl border border-rose-500 bg-rose-50 text-rose-900 text-center font-bold text-xs";
+  banner.textContent = cleared ? "✓ STATUS: FULLY CLEARED — ZERO OUTSTANDING BOOKS & ₹0 DUES"
+                               : `⚠️ WITHHELD: ${borrows.length} checked-out book(s) & ₹${fines} late fines pending`;
+  $('certPrintNotice').innerHTML = facultyView
+    ? `<span class="text-emerald-400">Faculty authorization verified. Print unlocked.</span>`
+    : `<span class="text-amber-300">🔒 Official printing is authorized only via the Faculty Desk.</span>`;
+  $('certPrintBtn').classList.toggle('hidden', !(facultyView && cleared));
+  $('certificateModal').classList.remove('hidden');
+}
+function closeCertificateModal() { $('certificateModal').classList.add('hidden'); }
+</script>
+</body>
+</html>
